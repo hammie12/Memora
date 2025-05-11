@@ -8,6 +8,18 @@ import { Database } from '@/types/supabase'; // Assuming types are generated
 import { User } from '@supabase/supabase-js'; // Import User type
 import LogoutButton from '@/components/LogoutButton'; // Import LogoutButton
 
+// Define interfaces for API responses
+interface StickerApiResponse {
+  success: boolean;
+  imageUrl?: string;
+  error?: string;
+}
+
+interface StickerApiErrorResponse {
+  error: string;
+  [key: string]: any; // To accommodate any other properties Vercel might send
+}
+
 const MEMORA_STYLE_PROMPT = `{
   "style_name": "Memora Style",
   "visual_aesthetic": {
@@ -49,7 +61,7 @@ const MEMORA_STYLE_PROMPT = `{
 }`;
 
 // Cast to any
-const Image = NextImage as any;
+const Image = NextImage;
 
 export default function Home() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -129,7 +141,7 @@ export default function Home() {
       });
 
       if (!response.ok) {
-        const errorData = await response.json();
+        const errorData: StickerApiErrorResponse = await response.json();
         // Handle specific auth error from API
         if (response.status === 401) {
             setError("Authentication failed. Please log in again.");
@@ -140,7 +152,7 @@ export default function Home() {
             throw new Error(errorData.error || `Error: ${response.statusText}`);
         }
       } else {
-          const result = await response.json();
+          const result: StickerApiResponse = await response.json();
           console.log('API Response:', result);
 
           if (result.success && result.imageUrl) {
@@ -264,7 +276,7 @@ export default function Home() {
               width={256}
               height={256}
               className="object-contain max-h-64 rounded-lg"
-              onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+              onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
                 console.error("Error loading generated image:", e);
                 setError("Failed to load generated image");
                 setGeneratedImageUrl(null);

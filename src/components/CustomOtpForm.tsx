@@ -27,6 +27,7 @@ export default function CustomOtpForm() {
     setError(null);
     setMessage(null);
 
+    // Ensure 'data' is not destructured if not used
     const { error } = await supabase.auth.signInWithOtp({
       email: email,
       options: {
