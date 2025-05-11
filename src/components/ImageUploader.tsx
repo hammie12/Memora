@@ -1,12 +1,11 @@
 'use client';
 
 import React, { useState, useRef, ChangeEvent, useEffect } from 'react';
-import Image from 'next/image'; // Restore original import
-import Link from 'next/link'; // Import Link for the tooltip buttons
-// import NextImage from 'next/image'; // Remove this
+import NextImage from 'next/image'; // Changed import
+import Link from 'next/link'; // Changed from NextLink
 
-// Remove the cast
-// const Image = NextImage as React.FC<React.ComponentProps<typeof NextImage>>;
+// Type assertions
+const Image = NextImage as React.ComponentType<any>;
 
 interface ImageUploaderProps {
   onFileSelect: (file: File | null) => void;
@@ -132,7 +131,7 @@ function ImageUploader({ onFileSelect, isLoggedIn }: ImageUploaderProps) {
             </p>
             <div className="flex justify-center gap-4">
               {/* Styled Login Button */}
-              <Link href="/login" legacyBehavior>
+              <Link href="/login" legacyBehavior passHref>
                 <a 
                   onMouseDown={(e) => e.stopPropagation()}
                   // Apply button wrapper styles (gradient, shape, shadow etc.)
@@ -145,7 +144,7 @@ function ImageUploader({ onFileSelect, isLoggedIn }: ImageUploaderProps) {
                 </a>
               </Link>
               {/* Styled Sign Up Button */}
-              <Link href="/signup" legacyBehavior>
+              <Link href="/signup" legacyBehavior passHref>
                  <a 
                    onMouseDown={(e) => e.stopPropagation()}
                    // Apply button wrapper styles (gradient, shape, shadow etc.)

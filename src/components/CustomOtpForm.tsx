@@ -27,7 +27,7 @@ export default function CustomOtpForm() {
     setError(null);
     setMessage(null);
 
-    const { data: _data, error } = await supabase.auth.signInWithOtp({
+    const { error } = await supabase.auth.signInWithOtp({
       email: email,
       options: {
         // Set this to false if you don't want the user to be automatically signed up
@@ -43,8 +43,8 @@ export default function CustomOtpForm() {
       console.error('OTP Error:', error);
       setError(error.message);
     } else {
-      setMessage('Check your email for the OTP code!');
-      setStep('otp'); // Move to OTP entry step
+      // OTP sent successfully, navigate to the verify OTP page
+      router.push('/verify-otp');
     }
     setIsLoading(false);
   };

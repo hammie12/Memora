@@ -16,7 +16,6 @@ const nextConfig = {
     // Setting ignoreDuringBuilds: false makes sure ESLint runs during build.
     // ignorePatterns will exclude the specified file from linting.
     ignoreDuringBuilds: false,
-    ignorePatterns: ['src/types/supabase.ts'],
   },
   // Other Next.js config options can go here
 };

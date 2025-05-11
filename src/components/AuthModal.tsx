@@ -1,6 +1,6 @@
 'use client';
 
-import AuthForm from './AuthForm'; // Use relative path
+import CustomAuthForm from './CustomAuthForm'; // Use relative path, corrected name
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -37,7 +37,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
           You need an account to generate stickers.
         </p>
         {/* Embed the AuthForm */}
-        <AuthForm />
+        <CustomAuthForm />
       </div>
     </div>
   );

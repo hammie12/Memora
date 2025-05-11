@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import ImageUploader from '@/components/ImageUploader';
-import Image from 'next/image'; // Restore original import
+import NextImage from 'next/image'; // Changed import
 import { createBrowserClient } from '@supabase/ssr'; // Import browser client
 import { Database } from '@/types/supabase'; // Assuming types are generated
 import { User } from '@supabase/supabase-js'; // Import User type
@@ -48,8 +48,8 @@ const MEMORA_STYLE_PROMPT = `{
   "overall_vibe": "A high‐glamour, nostalgic yet contemporary sticker art style that elevates everyday fashion moments into collectible, shareable icons. It merges the polished sheen of Bratz‐inspired vinyl dolls with the warmth of hand‐drawn animation, making each character look like a limited‐edition fashion sticker."
 }`;
 
-// Remove the cast
-// const Image = NextImage as React.ComponentType<any>;
+// Cast to any
+const Image = NextImage as any;
 
 export default function Home() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -150,8 +150,12 @@ export default function Home() {
           }
       }
 
-    } catch (err: Error) {
-      setError(err.message || 'Failed to generate sticker');
+    } catch (err: unknown) {
+      let message = 'Failed to generate sticker';
+      if (err instanceof Error) {
+        message = err.message;
+      }
+      setError(message);
       console.error(err);
     } finally {
       setIsLoading(false);
@@ -181,8 +185,12 @@ export default function Home() {
 
       URL.revokeObjectURL(blobUrl);
 
-    } catch (err: Error) {
-      setError(err.message || 'Failed to download sticker');
+    } catch (err: unknown) {
+      let message = 'Failed to download sticker';
+      if (err instanceof Error) {
+        message = err.message;
+      }
+      setError(message);
       console.error('Download error:', err);
     } finally {
       setIsLoading(false);
@@ -256,7 +264,7 @@ export default function Home() {
               width={256}
               height={256}
               className="object-contain max-h-64 rounded-lg"
-              onError={(e) => {
+              onError={(e: React.SyntheticEvent<HTMLImageElement, Event>) => {
                 console.error("Error loading generated image:", e);
                 setError("Failed to load generated image");
                 setGeneratedImageUrl(null);
