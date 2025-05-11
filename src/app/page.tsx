@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import ImageUploader from '@/components/ImageUploader';
 import Image from 'next/image'; // Restore original import
-import Link from 'next/link'; // Import Link for login redirect
 import { createBrowserClient } from '@supabase/ssr'; // Import browser client
 import { Database } from '@/types/supabase'; // Assuming types are generated
 import { User } from '@supabase/supabase-js'; // Import User type
@@ -151,7 +150,7 @@ export default function Home() {
           }
       }
 
-    } catch (err: any) {
+    } catch (err: Error) {
       setError(err.message || 'Failed to generate sticker');
       console.error(err);
     } finally {
@@ -182,7 +181,7 @@ export default function Home() {
 
       URL.revokeObjectURL(blobUrl);
 
-    } catch (err: any) {
+    } catch (err: Error) {
       setError(err.message || 'Failed to download sticker');
       console.error('Download error:', err);
     } finally {

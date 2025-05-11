@@ -4,7 +4,7 @@ import { useState, FormEvent } from 'react';
 import { createBrowserClient } from '@supabase/ssr';
 import { useRouter } from 'next/navigation';
 import { Database } from '@/types/supabase'; // Assuming types are generated
-import { AuthOtpResponse } from '@supabase/supabase-js';
+// import { AuthOtpResponse } from '@supabase/supabase-js'; // Removed unused import
 
 export default function CustomOtpForm() {
   const router = useRouter();
@@ -27,7 +27,7 @@ export default function CustomOtpForm() {
     setError(null);
     setMessage(null);
 
-    const { data, error } = await supabase.auth.signInWithOtp({
+    const { data: _data, error } = await supabase.auth.signInWithOtp({
       email: email,
       options: {
         // Set this to false if you don't want the user to be automatically signed up

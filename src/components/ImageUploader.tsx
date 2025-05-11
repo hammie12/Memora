@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef, ChangeEvent, useCallback, useEffect } from 'react';
+import React, { useState, useRef, ChangeEvent, useEffect } from 'react';
 import Image from 'next/image'; // Restore original import
 import Link from 'next/link'; // Import Link for the tooltip buttons
 // import NextImage from 'next/image'; // Remove this

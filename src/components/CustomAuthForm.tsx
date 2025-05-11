@@ -4,7 +4,6 @@ import { useState, FormEvent } from 'react';
 import { createBrowserClient } from '@supabase/ssr';
 import { useRouter } from 'next/navigation';
 import { Database } from '@/types/supabase';
-import { AuthOtpResponse } from '@supabase/supabase-js';
 
 // Define view types
 type AuthView = 'sign_in' | 'sign_up' | 'verify_otp';
@@ -150,7 +149,7 @@ export default function CustomAuthForm({ initialView = 'sign_in' }: CustomAuthFo
           </div>
           <div className="text-center">
             <button type="button" onClick={() => setView('sign_up')} className="text-sm text-blue-600 hover:underline dark:text-blue-400">
-              Don't have an account? Sign Up
+              Don&apos;t have an account? Sign Up
             </button>
           </div>
         </form>
