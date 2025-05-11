@@ -20,7 +20,76 @@
 }
 
 body {
-  background: var(--background);
+  /* Iridescent gradient - adjust colors and angle as needed */
+  background: linear-gradient(160deg, #a7c5eb 0%, #d5a7e8 25%, #fbc2eb 50%, #a7e8d5 75%, #a7c5eb 100%);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+}
+
+/* Custom styles for Supabase Auth Button */
+.supabase-auth-button {
+  /* Outer gradient layer */
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px; /* Adjust as needed for border thickness */
+  overflow: hidden;
+  font-size: 1rem; /* Match app button size */
+  font-weight: 700; /* Bold */
+  color: black; /* Text color is on the inner span */
+  border-radius: 9999px; /* Pill shape */
+  /* Gradient matching the brand color set in AuthForm */
+  background-image: linear-gradient(to bottom right, #8B5CF6, #6D28D9);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition: all 0.2s ease-in-out;
+  border: none; /* Remove default border */
+  cursor: pointer;
+}
+
+.supabase-auth-button:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* We need an inner span to create the solid background effect */
+/* Supabase UI might not render this span, so this part might not work perfectly */
+/* Target the button's text directly if no span is present */
+.supabase-auth-button > span,
+.supabase-auth-button {
+  position: relative; /* Ensure text is above gradient if no span */
+  padding: 0.75rem 1.5rem; /* Adjust padding */
+  background-color: white; /* Inner background */
+  border-radius: 9999px; /* Match outer radius */
+  transition: background-color 0.1s ease-in-out;
+  color: #171717; /* Inner text color (light mode) */
+}
+
+.supabase-auth-button:hover > span {
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+/* Dark mode adjustments for inner span/text */
+@media (prefers-color-scheme: dark) {
+  .supabase-auth-button > span,
+  .supabase-auth-button {
+     background-color: #18181b; /* Dark inner background */
+     color: #ededed; /* Inner text color (dark mode) */
+  }
+  .supabase-auth-button:hover > span {
+    background-color: rgba(24, 24, 27, 0.9);
+  }
+}
+
+/* Style secondary buttons differently (e.g., forgot password link button) */
+/* This targets buttons specifically marked by Supabase UI */
+.supabase-auth-anchor button {
+  background: none !important;
+  box-shadow: none !important;
+  color: #6366F1 !important; /* Match brand color */
+  text-decoration: underline !important;
+  padding: 0 !important;
+}
+
+.supabase-auth-anchor button:hover {
+  color: #4F46E5 !important; /* Darker brand color */
 }
